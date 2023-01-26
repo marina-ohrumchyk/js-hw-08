@@ -1,43 +1,42 @@
 // Add imports above this line
 import { galleryItems } from './gallery-items';
 // Change code below this line
-// import SimpleLightbox from "simplelightbox";
-// import "simplelightbox/dist/simple-lightbox.min.css";
+
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 console.log(galleryItems);
 
 const galleryConteiner = document.querySelector('.gallery');
-const cardMarkup = createCard(galleryItems);
-galleryConteiner.insertAdjacentHTML('beforeend', cardMarkup);
-galleryConteiner.addEventListener('click', galleryClick);
-
-function createCard(images) {
-  return images
-    .map(({ preview, original, description }) => {
-      return `
-        <div class="gallery__item">
-        <a class="gallery__link" href="${original}">
+const cardMarkup = galleryItems
+  .map(({ preview, original, description }) => {
+    return `
+        
+        <a class="gallery__item" href="${original}">
           <img
             class="gallery__image"
             src="${preview}"
-            data-source="${original}"
             alt="${description}"
           />
         </a>
-      </div>
+     
       `;
-    })
-    .join('');
-}
+  })
+  .join('');
 
-function galleryClick(evt) {
-  evt.preventDefault();
-  
-  if (evt.target.nodeName !== `IMG`) {
+galleryConteiner.insertAdjacentHTML('afterbegin', cardMarkup);
+galleryConteiner.addEventListener('click', galleryClick);
+
+function galleryClick(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== 'IMG') {
     return;
   }
-  const instance = basicLightbox.create(`
-      <img src="${evt.target.dataset.source}" width="800" height="600">
-      `);
-  instance.show();
 }
+
+new SimpleLightbox('.gallery a');
+const gallery = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionsData: "alt",
+  captionDelay: 250,
+});
