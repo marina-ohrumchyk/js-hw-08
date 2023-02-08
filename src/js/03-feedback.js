@@ -5,7 +5,7 @@ const inputElement = document.querySelector('input');
 const textareaElement = document.querySelector('textarea');
 
 formElement.addEventListener('submit', submitForm);
-inputElement.addEventListener('input', throttle(addlocalStorage, 500));
+formElement.addEventListener('input', throttle(addlocalStorage, 500));
 
 const localObject = {
   email: '',
