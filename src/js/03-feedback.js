@@ -27,10 +27,12 @@ const dataObject = localStorage.getItem('feedback-form-state');
 function insertWithLS(object) {
   if (object && inputElement.name === 'email') {
     inputElement.value = JSON.parse(object).email;
+    localObject.email = JSON.parse(object).email;
   }
 
   if (object && textareaElement.name === 'message') {
     textareaElement.value = JSON.parse(object).message;
+    localObject.message = JSON.parse(object).message;
   }
 }
 insertWithLS(dataObject);
